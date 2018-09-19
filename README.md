@@ -36,20 +36,23 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 && locale-gen \
 && rm /etc/localtime \
 && ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
-&& hwclock --systohc --utc \
+&& hwclock --systohc --utc
 ```
 
 ## Setup network
 ### For dynamic IP (Don't forget to replace the interface name)
 ```
-echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \n Connection=ethernet \n IP=dhcp \n IP6=stateless" >> /etc/netctl/local-net \
-&& netctl enable local-net \
+echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \n Connection=ethernet \n IP=dhcp \n IP6=stateless" >> /etc/netctl/local-net
+
+netctl enable local-net \
 && systemctl enable dhcpcd
 ```
 ### For static IP (Don't forget to replace the interface name, ip, getway and DNS)
 ```
-echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \m Connection=ethernet \n IP=static \n IP6=stateless \n Addres=('192.168.69.3/24') \n Gateway='192.168.69.1' \n DNS=('192.168.69.2')" >> /etc/netctl/local-net \
-&& netctl enable local-net
+echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \m Connection=ethernet \n IP=static \n IP6=stateless \n Addres=('192.168.69.3/24') \n Gateway='192.168.69.1' \n DNS=('192.168.69.2')" >> /etc/netctl/local-net
+
+netctl enable local-net \
+&& systemctl disable dhcpcd
 ```
 
 ## Set password for root
