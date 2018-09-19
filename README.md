@@ -42,7 +42,12 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 ## Setup network
 ### For dynamic IP (Don't forget to replace the interface name)
 ```
-echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \n Connection=ethernet \n IP=dhcp \n IP6=stateless" >> /etc/netctl/local-net
+echo "Description='Local Network'" > /etc/netctl/local-net \
+&& echo "Interface=(INTERFACE_NAME)" >> /etc/netctl/local-net
+
+echo "Connection=ethernet" >> /etc/netctl/local-net \
+&& echo "IP=dhcp" >> /etc/netctl/local-net \
+&& echo "IP6=stateless" >> /etc/netctl/local-net
 
 netctl enable local-net \
 && systemctl enable dhcpcd
@@ -60,17 +65,6 @@ netctl enable local-net \
 passwd
 ```
 
-## Create a user with sudo enabled (replace the USER_NAME)
-```
-sed 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers > /etc/sudoers.new \
-&& export EDITOR="cp /etc/sudoers.new" \
-&& visudo \
-&& rm /etc/sudoers.new
-
-useradd -m -g users -G wheel -s /bin/bash USER_NAME
-passwd USER_NAME
-```
-
 ## Install neccessary packages
 ```
 pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios
@@ -86,6 +80,15 @@ sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config \
 ```
 grub-install --target=i386-pc --recheck /dev/sda \
 && grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+## Create a user with sudo enabled (replace the USER_NAME)
+```
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
+
+useradd -m -g users -G wheel -s /bin/bash USER_NAME
+
+passwd USER_NAME
 ```
 
 ## Exit the base OS and reboot
