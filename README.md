@@ -1,11 +1,20 @@
 # Arch linux installation process
 
-## Enable SSH for copy/past actions
+## For easier installation process
+### Enable SSH
 ```
 systemctl start sshd
+```
+### Set password for root
+```
 passwd
+```
+### Get the IP address
+```
 ip addr
 ```
+### Now use any shell that supports copy/past and continue the installation
+
 
 ## For German keyboard
 ```
@@ -82,9 +91,7 @@ echo "Description='Local Network'" >> /etc/netctl/local-net \
 ```
 
 ## Set password for root
-```
-passwd
-```
+
 
 ## Install neccessary packages
 ```
