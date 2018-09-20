@@ -88,7 +88,7 @@ passwd
 
 ## Install neccessary packages
 ```
-pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios
+pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools
 ```
 
 ## Configure SSH port and enable the service
