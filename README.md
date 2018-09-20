@@ -47,7 +47,7 @@ ip a
 ```
 #### Then export the network interface name that you want to assign DHCP or static IP.
 ```
-export INTERFACE (name)
+export INTERFACE=???
 ```
 
 ### For dynamic IP (Don't forget to export interface")
@@ -61,11 +61,11 @@ echo "Description='Local Network'" > /etc/netctl/local-net \
 && systemctl enable dhcpcd
 ```
 ### For static IP (Don't forget to export interface, ip, getway and DNS)
-#### First export IP, GETWAY, DNS
+#### First export the static IP, GETWAY server and DNS server
 ```
-export IP (ip)
-export GETWAY (getway)
-export DNS (dns)
+export IP=???
+export GETWAY=???
+export DN=???
 ```
 #### Now execute the bellow script to create network file and network service 
 ```
