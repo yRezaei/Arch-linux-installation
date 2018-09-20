@@ -17,7 +17,7 @@
     ```
     loadkeys de-latin1
     ```
-  - ### Now use any shell that supports copy/past and continue the installation
+> **Now use any shell that supports copy/past and continue the installation**
 
 ---
 
