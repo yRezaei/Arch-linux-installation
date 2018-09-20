@@ -64,7 +64,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
     export INTERFACE=???
     ```
 
-  - For 'dynamic IP' (Don't forget to export interface")
+  - For **dynamic IP** (Don't forget to export interface")
     ```
     echo "Description='Local Network'" > /etc/netctl/local-net \
     && echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
@@ -74,7 +74,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
     && netctl enable local-net \
     && systemctl enable dhcpcd
     ```
-  - For 'static IP' (Don't forget to export interface, ip, getway and DNS)
+  - For **static IP** (Don't forget to export interface, ip, getway and DNS)
     - First export the static IP, GETWAY server and DNS server
       ```
       export IP=???
@@ -121,18 +121,18 @@ grub-install --target=i386-pc --recheck /dev/sda \
 ---
 
 ## 11. Create a user with sudo enabled (replace the USER_NAME)
-  - ### First export the username
+  - First export the username for the next script
     ```
     export USERNAME=???
     ```
-  - ### Now let's create the user
+  - Now let's create the user
     ```
     sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers \
     && useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
     && passwd ${USERNAME}
     ```
  
-## 12. If you are installing Arch linux in vmware
+## 12. If you are installing Arch linux in VMware
 ```
 pacman -S open-vm-tools
 ```
