@@ -1,6 +1,6 @@
 # Arch linux installation process
 
-1. ## For easier installation process. 
+## 1. For easier installation process. 
 ### Enable SSH
 ```
 systemctl start sshd
