@@ -39,13 +39,14 @@ pacstrap /mnt base \
 arch-chroot /mnt
 ```
 
-## Setup language and timezone
+## Setup keyboard layout and timezone
 ```
 sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 && locale-gen \
 && rm /etc/localtime \
 && ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
-&& hwclock --systohc --utc
+&& hwclock --systohc --utc \
+&& localectl set-keymap --no-convert de-latin1
 ```
 
 ## Setup network
