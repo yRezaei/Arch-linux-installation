@@ -99,7 +99,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 
 ## 7. Install neccessary packages
 ```
-pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools gdb bash-completion 
+pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel cmake net-tools gdb bash-completion 
 ```
 
 ---
