@@ -99,7 +99,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 
 ## 7. Install neccessary packages
 ```
-pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools gdb 
+pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools gdb bash-completion 
 ```
 
 ---
@@ -131,10 +131,17 @@ grub-install --target=i386-pc --recheck /dev/sda \
     && useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
     && passwd ${USERNAME}
     ```
+ 
+## 12. If you are installing Arch linux in vmware
+```
+pacman -S open-vm-tools
+```
+  ### To enable shared folder at first boot
+  ```
+  sudo vmhgfs-fuse -o allow_other -o auto_unmount .host:/shared-folder /home/${USER}/shared-folder
+  ```
 
----
-
-## 11. Congratulation we are done. Simply exit and enjoy the Arch linux 
+## 13. Congratulation we are done. Simply exit and enjoy the Arch linux 
 ```
 exit
 umount /mnt
