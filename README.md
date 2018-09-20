@@ -2,21 +2,21 @@
 
 ## 1. For easier installation process. 
   - ### Enable SSH
-```
-systemctl start sshd
-```
+    ```
+    systemctl start sshd
+    ```
   - ### Set password for root
-```
-passwd
-```
+    ```
+    passwd
+    ```
   - ### Get the IP address
-```
-ip addr
-```
+    ```
+    ip addr
+    ```
   - ### For German keyboard
-```
-loadkeys de-latin1
-```
+    ```
+    loadkeys de-latin1
+    ```
   - ### Now use any shell that supports copy/past and continue the installation
 
 ---
@@ -56,44 +56,44 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 
 ## 6. Setup the network
   - ### Check the network interface name 
-```
-ip a
-```
+    ```
+    ip a
+    ```
   - ### Then export the network interface name that you want to assign DHCP or static IP.
-```
-export INTERFACE=???
-```
+    ```
+    export INTERFACE=???
+    ```
 
   - ### For dynamic IP (Don't forget to export interface")
-```
-echo "Description='Local Network'" > /etc/netctl/local-net \
-&& echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
-&& echo "Connection=ethernet" >> /etc/netctl/local-net \
-&& echo "IP=dhcp" >> /etc/netctl/local-net \
-&& echo "IP6=stateless" >> /etc/netctl/local-net \
-&& netctl enable local-net \
-&& systemctl enable dhcpcd
-```
+    ```
+    echo "Description='Local Network'" > /etc/netctl/local-net \
+    && echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
+    && echo "Connection=ethernet" >> /etc/netctl/local-net \
+    && echo "IP=dhcp" >> /etc/netctl/local-net \
+    && echo "IP6=stateless" >> /etc/netctl/local-net \
+    && netctl enable local-net \
+    && systemctl enable dhcpcd
+    ```
   - ### For static IP (Don't forget to export interface, ip, getway and DNS)
     - #### First export the static IP, GETWAY server and DNS server
-```
-export IP=???
-export GETWAY=???
-export DN=???
-```
+      ```
+      export IP=???
+      export GETWAY=???
+      export DN=???
+      ```
     - #### Now execute the bellow script to create network file and network service 
-```
-echo "Description='Local Network'" >> /etc/netctl/local-net \
-&& echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
-&& echo "Connection=ethernet" >> /etc/netctl/local-net \
-&& echo "IP=static" >> /etc/netctl/local-net \
-&& echo "IP6=stateless" >> /etc/netctl/local-net \
-&& echo "Addres=('"${IP}"')" >> /etc/netctl/local-net \
-&& echo "Gateway='"${GETWAY}"' >> /etc/netctl/local-net \
-&& echo "DNS=('"${DNS}"')" >> /etc/netctl/local-net \
-&& netctl enable local-net \
-&& systemctl disable dhcpcd
-```
+      ```
+      echo "Description='Local Network'" >> /etc/netctl/local-net \
+      && echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
+      && echo "Connection=ethernet" >> /etc/netctl/local-net \
+      && echo "IP=static" >> /etc/netctl/local-net \
+      && echo "IP6=stateless" >> /etc/netctl/local-net \
+      && echo "Addres=('"${IP}"')" >> /etc/netctl/local-net \
+      && echo "Gateway='"${GETWAY}"' >> /etc/netctl/local-net \
+      && echo "DNS=('"${DNS}"')" >> /etc/netctl/local-net \
+      && netctl enable local-net \
+      && systemctl disable dhcpcd
+      ```
 
 ---
 
@@ -122,15 +122,15 @@ grub-install --target=i386-pc --recheck /dev/sda \
 
 ## 11. Create a user with sudo enabled (replace the USER_NAME)
   - ### First export the username
-```
-export USERNAME=???
-```
+    ```
+    export USERNAME=???
+    ```
   - ### Now let's create the user
-```
-sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers \
-&& useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
-&& passwd ${USERNAME}
-```
+    ```
+    sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers \
+    && useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
+    && passwd ${USERNAME}
+    ```
 
 ---
 
