@@ -1,6 +1,6 @@
 # Arch linux installation process
 
-## For easier installation process
+1. ## For easier installation process. 
 ### Enable SSH
 ```
 systemctl start sshd
@@ -21,7 +21,7 @@ loadkeys de-latin1
 
 ---
 
-## Now let's create a root (/) partition, format it as ext4 and mount it.
+2. ## Now let's create a root (/) partition, format it as ext4 and mount it.
 ```
 echo -e "o\nn\n\n\n\n\na\n\nw\n" | fdisk /dev/sda \
 && mkfs.ext4 /dev/sda1 \
@@ -29,20 +29,20 @@ echo -e "o\nn\n\n\n\n\na\n\nw\n" | fdisk /dev/sda \
 ```
 ---
 
-## Now we need to install base packages for running the OS
+3. ## Now we need to install base packages for running the OS
 ```
 pacstrap /mnt base \
 && genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
 ---
 
-## For further installation, we login into the OS
+4. ## For further installation, we login into the OS
 ```
 arch-chroot /mnt
 ```
 ---
 
-## Setup keyboard layout and timezone
+5. ## Setup keyboard layout and timezone
 ```
 sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 && locale-gen \
@@ -54,7 +54,7 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 
 ---
 
-## Setup the network
+6. ## Setup the network
 ### Check the network interface name
 #### Display all network interfaces by executing: 
 ```
@@ -98,14 +98,14 @@ echo "Description='Local Network'" >> /etc/netctl/local-net \
 
 ---
 
-## Install neccessary packages
+7. ## Install neccessary packages
 ```
 pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools gdb 
 ```
 
 ---
 
-## Configure SSH port and enable the service
+8. ## Configure SSH port and enable the service
 ```
 sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config \
 && systemctl enable sshd
@@ -113,7 +113,7 @@ sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config \
 
 ---
 
-## Install and configure the grub
+9. ## Install and configure the grub
 ```
 grub-install --target=i386-pc --recheck /dev/sda \
 && grub-mkconfig -o /boot/grub/grub.cfg
@@ -121,7 +121,7 @@ grub-install --target=i386-pc --recheck /dev/sda \
 
 ---
 
-## Create a user with sudo enabled (replace the USER_NAME)
+10. ## Create a user with sudo enabled (replace the USER_NAME)
 ### First export the username
 ```
 export USERNAME=???
@@ -135,7 +135,7 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers \
 
 ---
 
-## Congratulation we are done. Simply exit and enjoy the Arch linux 
+11. ## Congratulation we are done. Simply exit and enjoy the Arch linux 
 ```
 exit
 umount /mnt
