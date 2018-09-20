@@ -1,19 +1,19 @@
 # Arch linux installation process
 
 ## 1. For easier installation process. 
-  - ### Enable SSH
+  - Enable SSH
     ```
     systemctl start sshd
     ```
-  - ### Set password for root
+  - Set password for root
     ```
     passwd
     ```
-  - ### Get the IP address
+  - Get the IP address
     ```
     ip addr
     ```
-  - ### For German keyboard
+  - For German keyboard
     ```
     loadkeys de-latin1
     ```
@@ -55,16 +55,16 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 ---
 
 ## 6. Setup the network
-  - ### Check the network interface name 
+  - Check the network interface name 
     ```
     ip a
     ```
-  - ### Then export the network interface name that you want to assign DHCP or static IP.
+  - Then export the network interface name that you want to assign DHCP or static IP.
     ```
     export INTERFACE=???
     ```
 
-  - ### For dynamic IP (Don't forget to export interface")
+  - For 'dynamic IP' (Don't forget to export interface")
     ```
     echo "Description='Local Network'" > /etc/netctl/local-net \
     && echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
@@ -74,14 +74,14 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
     && netctl enable local-net \
     && systemctl enable dhcpcd
     ```
-  - ### For static IP (Don't forget to export interface, ip, getway and DNS)
-    - #### First export the static IP, GETWAY server and DNS server
+  - For 'static IP' (Don't forget to export interface, ip, getway and DNS)
+    - First export the static IP, GETWAY server and DNS server
       ```
       export IP=???
       export GETWAY=???
       export DN=???
       ```
-    - #### Now execute the bellow script to create network file and network service 
+    - Now execute the bellow script to create network file and network service 
       ```
       echo "Description='Local Network'" >> /etc/netctl/local-net \
       && echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
@@ -136,7 +136,7 @@ grub-install --target=i386-pc --recheck /dev/sda \
 ```
 pacman -S open-vm-tools
 ```
-  - ### To enable shared folder at first boot
+  - To enable shared folder at first boot
     ```
     sudo vmhgfs-fuse -o allow_other -o auto_unmount .host:/shared-folder /home/${USER}/shared-folder
     ```
