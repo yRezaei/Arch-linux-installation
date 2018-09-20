@@ -136,10 +136,10 @@ grub-install --target=i386-pc --recheck /dev/sda \
 ```
 pacman -S open-vm-tools
 ```
-  ### To enable shared folder at first boot
-  ```
-  sudo vmhgfs-fuse -o allow_other -o auto_unmount .host:/shared-folder /home/${USER}/shared-folder
-  ```
+  - ### To enable shared folder at first boot
+    ```
+    sudo vmhgfs-fuse -o allow_other -o auto_unmount .host:/shared-folder /home/${USER}/shared-folder
+    ```
 
 ## 13. Congratulation we are done. Simply exit and enjoy the Arch linux 
 ```
