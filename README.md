@@ -40,23 +40,44 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 ```
 
 ## Setup network
-### For dynamic IP (Don't forget to replace the interface name)
+### Check the network interface name
+#### Display all network interfaces by executing: 
+```
+ip a
+```
+#### Then export the network interface name that you want to assign DHCP or static IP.
+```
+export INTERFACE (name)
+```
+
+### For dynamic IP (Don't forget to export interface")
 ```
 echo "Description='Local Network'" > /etc/netctl/local-net \
-&& echo "Interface=(INTERFACE_NAME)" >> /etc/netctl/local-net
-
-echo "Connection=ethernet" >> /etc/netctl/local-net \
+&& echo "Interface="INTERFACE >> /etc/netctl/local-net \
+&& echo "Connection=ethernet" >> /etc/netctl/local-net \
 && echo "IP=dhcp" >> /etc/netctl/local-net \
-&& echo "IP6=stateless" >> /etc/netctl/local-net
-
-netctl enable local-net \
+&& echo "IP6=stateless" >> /etc/netctl/local-net \
+&& netctl enable local-net \
 && systemctl enable dhcpcd
 ```
-### For static IP (Don't forget to replace the interface name, ip, getway and DNS)
+### For static IP (Don't forget to export interface, ip, getway and DNS)
+#### First export IP, GETWAY, DNS
 ```
-echo "Description='Local Network' \n Interface=(INTERFACE_NAME) \m Connection=ethernet \n IP=static \n IP6=stateless \n Addres=('192.168.69.3/24') \n Gateway='192.168.69.1' \n DNS=('192.168.69.2')" >> /etc/netctl/local-net
-
-netctl enable local-net \
+export IP (ip)
+export GETWAY (getway)
+export DNS (dns)
+```
+#### Now execute the bellow script to create network file and network service 
+```
+echo "Description='Local Network'" >> /etc/netctl/local-net \
+&& echo "Interface=(INTERFACE_NAME)" >> /etc/netctl/local-net \
+&& echo "Connection=ethernet" >> /etc/netctl/local-net \
+&& echo "IP=static" >> /etc/netctl/local-net \
+&& echo "IP6=stateless" >> /etc/netctl/local-net \
+&& echo "Addres=('"${IP}"')" >> /etc/netctl/local-net \
+&& echo "Gateway='"${GETWAY}"' >> /etc/netctl/local-net \
+&& echo "DNS=('"${DNS}"')" >> /etc/netctl/local-net \
+&& netctl enable local-net \
 && systemctl disable dhcpcd
 ```
 
