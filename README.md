@@ -14,7 +14,7 @@ loadkeys de-latin1
 
 ## For deleting entire disk and creating one single partition
 ```
-echo -e "o\nn\n\n\n\na\nw" | fdisk /dev/sda \
+echo -e "o\nn\n\n\n\n\na\n\nw\n" | fdisk /dev/sda \
 && mkfs.ext4 /dev/sda1 \
 && mount /dev/sda1 /mnt
 ```
