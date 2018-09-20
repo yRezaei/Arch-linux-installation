@@ -53,7 +53,7 @@ export INTERFACE=???
 ### For dynamic IP (Don't forget to export interface")
 ```
 echo "Description='Local Network'" > /etc/netctl/local-net \
-&& echo "Interface="INTERFACE >> /etc/netctl/local-net \
+&& echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
 && echo "Connection=ethernet" >> /etc/netctl/local-net \
 && echo "IP=dhcp" >> /etc/netctl/local-net \
 && echo "IP6=stateless" >> /etc/netctl/local-net \
@@ -70,7 +70,7 @@ export DN=???
 #### Now execute the bellow script to create network file and network service 
 ```
 echo "Description='Local Network'" >> /etc/netctl/local-net \
-&& echo "Interface=(INTERFACE_NAME)" >> /etc/netctl/local-net \
+&& echo "Interface="${INTERFACE} >> /etc/netctl/local-net \
 && echo "Connection=ethernet" >> /etc/netctl/local-net \
 && echo "IP=static" >> /etc/netctl/local-net \
 && echo "IP6=stateless" >> /etc/netctl/local-net \
