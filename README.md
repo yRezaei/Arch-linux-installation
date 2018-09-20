@@ -13,31 +13,34 @@ passwd
 ```
 ip addr
 ```
-### Now use any shell that supports copy/past and continue the installation
-
-
-## For German keyboard
+### For German keyboard
 ```
 loadkeys de-latin1
 ```
+### Now use any shell that supports copy/past and continue the installation
 
-## For deleting entire disk and creating one single partition
+---
+
+## Now let's create a root (/) partition, format it as ext4 and mount it.
 ```
 echo -e "o\nn\n\n\n\n\na\n\nw\n" | fdisk /dev/sda \
 && mkfs.ext4 /dev/sda1 \
 && mount /dev/sda1 /mnt
 ```
+---
 
-## Install base packages
+## Now we need to install base packages for running the OS
 ```
 pacstrap /mnt base \
 && genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
+---
 
-## Login into OS as root for further preparation
+## For further installation, we login into the OS
 ```
 arch-chroot /mnt
 ```
+---
 
 ## Setup keyboard layout and timezone
 ```
@@ -49,7 +52,9 @@ sed -i 's/#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/g' /etc/locale.gen \
 && localectl set-keymap --no-convert de-latin1
 ```
 
-## Setup network
+---
+
+## Setup the network
 ### Check the network interface name
 #### Display all network interfaces by executing: 
 ```
@@ -91,13 +96,14 @@ echo "Description='Local Network'" >> /etc/netctl/local-net \
 && systemctl disable dhcpcd
 ```
 
-## Set password for root
-
+---
 
 ## Install neccessary packages
 ```
-pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools
+pacman -S linux-headers linux-lts linux-lts-headers sudo openssh grub-bios git wget unzip base-devel net-tools gdb 
 ```
+
+---
 
 ## Configure SSH port and enable the service
 ```
@@ -105,22 +111,31 @@ sed -i 's/#Port 22/Port 22/g' /etc/ssh/sshd_config \
 && systemctl enable sshd
 ```
 
+---
+
 ## Install and configure the grub
 ```
 grub-install --target=i386-pc --recheck /dev/sda \
 && grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+---
+
 ## Create a user with sudo enabled (replace the USER_NAME)
+### First export the username
 ```
-sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
-
-useradd -m -g users -G wheel -s /bin/bash USER_NAME
-
-passwd USER_NAME
+export USERNAME=???
+```
+### Now let's create the user
+```
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers \
+&& useradd -m -g users -G wheel -s /bin/bash ${USERNAME}
+&& passwd ${USERNAME}
 ```
 
-## Exit the base OS and reboot
+---
+
+## Congratulation we are done. Simply exit and enjoy the Arch linux 
 ```
 exit
 umount /mnt
